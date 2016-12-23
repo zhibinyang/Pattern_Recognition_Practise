@@ -19,11 +19,14 @@ def Perceptron(DataSet1, DataSet2, InitW, rho):
     while True:
         for row in DataSet1:
             recurring_count += 1
+            print row.dot(W)
             if row.dot(W) <= 0:
                 W = W + row * rho
                 ok_count = 0
             else:
                 ok_count += 1
+            #print ok_count
+            #print W
         for row in DataSet2:
             recurring_count += 1
             if row.dot(W) >= 0:
