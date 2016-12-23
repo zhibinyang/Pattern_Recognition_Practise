@@ -19,7 +19,6 @@ def Perceptron(DataSet1, DataSet2, InitW, rho):
     while True:
         for row in DataSet1:
             recurring_count += 1
-            print row.dot(W)
             if row.dot(W) <= 0:
                 W = W + row * rho
                 ok_count = 0
@@ -39,7 +38,7 @@ def Perceptron(DataSet1, DataSet2, InitW, rho):
         if recurring_count >= 10000:
             raise BaseException("Running more than 10000 time, aborting...")
     print "Final W:",W
-    print "Recurring Count:",recurring_count
+    print "Recurring Count:",recurring_count/total_count
 
 def main():
     DataSet1 = getTrainingDataSet_1()

@@ -25,8 +25,8 @@ def getInitW():
     # w.append(w3)
     w = np.hstack((w1,w2))
     w = np.hstack((w,w3))
-    return w
-    #return np.random.random(9)
+    #return w
+    return np.random.random(9)
 
 def Kesler_Extender(DataSetVector):
     ResultDataSet = np.array([])
@@ -35,30 +35,30 @@ def Kesler_Extender(DataSetVector):
         omegaRowCount = DataSetVector[i].shape[0]
         for j in range(DataSetVector[i].shape[0]):
             for n in range(DataSetVector[i].shape[0]):
-                if n != j:
+                if n != i:
                     #print "n=",n,"j=",j
-                    if n < j:
+                    if n < i:
                         if n == 0:
-                            ResultDataSetRow = np.hstack((DataSetVector[i][j] * -1,np.array([0,0,0]).repeat(j-n-1)))
+                            ResultDataSetRow = np.hstack((DataSetVector[i][j] * -1,np.array([0,0,0]).repeat(i-n-1)))
                             ResultDataSetRow = np.hstack((ResultDataSetRow,DataSetVector[i][j]))
-                            ResultDataSetRow = np.hstack((ResultDataSetRow,np.array([0,0,0]).repeat(DataSetVector[i].shape[0]-j-1)))
+                            ResultDataSetRow = np.hstack((ResultDataSetRow,np.array([0,0,0]).repeat(DataSetVector[i].shape[0]-i-1)))
                             #print ResultDataSetRow
                         else:
                             ResultDataSetRow = np.hstack((np.array([0,0,0]).repeat(n),DataSetVector[i][j] * -1))
-                            ResultDataSetRow = np.hstack((ResultDataSetRow,np.array([0,0,0]).repeat(j-n-1)))
+                            ResultDataSetRow = np.hstack((ResultDataSetRow,np.array([0,0,0]).repeat(i-n-1)))
                             ResultDataSetRow = np.hstack((ResultDataSetRow,DataSetVector[i][j]))
-                            ResultDataSetRow = np.hstack((ResultDataSetRow,np.array([0,0,0]).repeat(DataSetVector[i].shape[0]-j-1)))
+                            ResultDataSetRow = np.hstack((ResultDataSetRow,np.array([0,0,0]).repeat(DataSetVector[i].shape[0]-i-1)))
                             #print ResultDataSetRow
                     else:
-                        if j == 0:
-                            ResultDataSetRow = np.hstack((DataSetVector[i][j],np.array([0,0,0]).repeat(n-j-1)))
+                        if i == 0:
+                            ResultDataSetRow = np.hstack((DataSetVector[i][j],np.array([0,0,0]).repeat(n-i-1)))
                             ResultDataSetRow = np.hstack((ResultDataSetRow, DataSetVector[i][j] * -1))
                             ResultDataSetRow = np.hstack((ResultDataSetRow, np.array([0,0,0]).repeat(DataSetVector[i].shape[0]-n-1)))
                             #print ResultDataSetRow
 
                         else:
-                            ResultDataSetRow = np.hstack((np.array([0, 0, 0]).repeat(j), DataSetVector[i][j]))
-                            ResultDataSetRow = np.hstack((ResultDataSetRow,np.array([0,0,0]).repeat(n-j-1)))
+                            ResultDataSetRow = np.hstack((np.array([0, 0, 0]).repeat(i), DataSetVector[i][j]))
+                            ResultDataSetRow = np.hstack((ResultDataSetRow,np.array([0,0,0]).repeat(n-i-1)))
                             ResultDataSetRow = np.hstack((ResultDataSetRow,DataSetVector[i][j] * -1))
                             ResultDataSetRow = np.hstack(
                                 (ResultDataSetRow, np.array([0, 0, 0]).repeat(DataSetVector[i].shape[0] - n - 1)))
@@ -75,8 +75,8 @@ def main():
     DataSetVector = getTrainDataSet()
     InitWVector = getInitW()
     extended_matrix = Kesler_Extender(DataSetVector=DataSetVector)
-    print InitWVector
-    print extended_matrix
+    #print InitWVector
+    #print extended_matrix
     Perceptron.Perceptron(extended_matrix,np.array([]),InitWVector,0.5)
 if __name__ == '__main__':
     main()
